@@ -1,0 +1,199 @@
+---
+interface Props { title: string }
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="title" content="Kushal Kumar Saha: Services">
+		<meta name="description" content="Kushal Kumar Saha services in one place to reach out">
+		<meta name="keywords" content="services, kushal, kushal kumar, kushal saha, kushal kumar saha, kushal services, kushal kumar services, kushal saha services, kushal kumar saha services, cv, resume, kushal resume, kushal kumar resume, kushal kumar saha resume, kushal cv, kushal kumar cv, kushal kumar saha cv, kushal professional, kushal software developer, kushal web developer, kushal automation devloper, website developer, full stack developer, kushal kumar saha discord, kushal kumar saha artworks, kushal kumar saha artist, kushalkumarsaha">
+		<meta name="robots" content="index, follow">
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="Kushal Kumar Saha: Services">
+		<meta name="twitter:description" content="Kushal Kumar Saha services in one place to reach out">
+		<meta name="twitter:image" content="https://github.com/bcd-kushal.png">
+		<meta name="twitter:site" content="https://services.kushalkumarsaha.com/">
+
+		<!-- Open Graph Meta Tags -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://services.kushalkumarsaha.com/">
+		<meta property="og:country-name" content="India">
+		<meta property="og:email" content="dev@kushalkumarsaha.com">
+		<meta property="og:email" content="am.kushal02@gmail.com">
+		<meta property="og:email" content="dev.kushal@icloud.com">
+		<meta property="og:image" content="https://github.com/bcd-kushal.png">
+		<meta property="og:site_name" content="Services: Kushal Kumar Saha">
+		<meta property="og:title" content="Kushal Kumar Saha: Services">
+		<meta property="og:description" content="Kushal Kumar Saha services in one place to reach out">
+
+		<!-- Other Meta Tags -->
+		<meta name="generator" content="Kushal Kumar Saha">
+		<meta name="referrer" content="origin-when-cross-origin">
+		<meta name="application-name" content="Services: Kushal Kumar Saha">
+		<meta name="author" content="Kushal Kumar Saha">
+		<meta name="category" content="Services">
+		<meta name="classification" content="website">
+		<meta name="bookmark" content="https://services.kushalkumarsaha.com/">
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="kushalkumar_bg_light.png" />
+
+		<!-- Tab title -->
+		<title>{title}</title>
+	</head>
+
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+	::-webkit-scrollbar{ display: none; }
+
+	*{
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	  color: #000;
+	  text-decoration: none;
+	  user-select: none;
+	  font-family: 'Outfit';
+	}
+
+	html{
+	  overflow-x: hidden;
+	}
+
+	body{
+	  min-width: 100dvw;
+	  min-height: 100dvh;
+	  padding: 0;
+	  font-size: .8em;
+	  background: #f0f0f0;
+	}
+
+</style>
+
+
+<script>
+	window.onload = async () => {
+		const getTrafficAnalytics = async () => {
+			const userTraffic = await fetch("https://api.ipify.org?format=json");
+		  	const ip = await userTraffic.json();
+			return ('ip' in ip) ? ip.ip : null;
+  		};
+
+		const getBatteryData = async () => {
+			const data = ('getBattery' in navigator) ? await (navigator as any).getBattery() : {};
+			return {
+				charging: ('charging' in data) ? data.charging : null,
+				percentage: ('level' in data) ? data.level*100 : null,
+				willFullyChargeAfter: ('chargingTime' in data) ? typeof(data.chargingTime)==='number' ? data.chargingTime : null : null,
+				willDischargeAfter: ('dischargingTime' in data) ? typeof(data.dischargingTime)==='number' ? data.dischargingTime : null : null,
+			}	
+		};
+
+		const getArchitecture = () => {
+			const userAgent = ('userAgent' in navigator) ? navigator.userAgent : "";
+			if(Object.keys(userAgent).length===0)
+				return { deviceModel: null, architecture: null }
+
+			let deviceModel = null;
+			let architecture = null;
+
+			if (/iPhone/.test(userAgent)) { deviceModel = "iPhone" } else if (/iPad/.test(userAgent)) { deviceModel = "iPad" } else if (/Android/.test(userAgent)) { deviceModel = "Android Device" } else if (/Macintosh/.test(userAgent)) { deviceModel = "Mac" }
+			if(/x32/.test(userAgent)) { architecture = "32-bit" } else if (/x64/.test(userAgent)) { architecture = "64-bit" } else if (/x128/.test(userAgent)) { architecture = "128-bit" } else if (/x256/.test(userAgent)) { architecture = "256-bit" } else if (/x512/.test(userAgent)) { architecture = "512-bit" } else if (/x1024/.test(userAgent)) { architecture = "1024-bit" }
+
+			return {
+				deviceModel: deviceModel,
+				architecture: architecture
+			}
+		}
+
+		const getSpace = () => {
+
+			let coord:{ x:number|null, y:number|null, z:number|null } = { x:null, y:null, z:null }
+			if(window.DeviceOrientationEvent) {
+				window.addEventListener('deviceorientation',(e) => {
+					coord.x = e.beta
+					coord.y = e.gamma
+					coord.z = e.alpha
+				},true)
+			}
+
+			let rates:{ acceleration:DeviceMotionEventAcceleration|null, accNoGravity: DeviceMotionEventAcceleration |null, rotationRate: DeviceMotionEventRotationRate |null } = { acceleration:null, accNoGravity:null, rotationRate:null }
+			if(window.DeviceMotionEvent) {
+				window.addEventListener('devicemotion',(e) => {
+					[ rates.accNoGravity, rates.acceleration, rates.rotationRate ] = [ e.acceleration, e.accelerationIncludingGravity, e.rotationRate ]
+				})
+			}
+
+			return {
+				space: coord.x ? coord : null,
+				rates: rates.acceleration ? rates : null
+			} 
+		}
+
+		const x = getArchitecture()
+		const y = getSpace()
+
+		const trafficData = {
+
+			location: {
+				ip: await getTrafficAnalytics(),
+			},
+
+			network: {
+				maxBandwidth: ('connection' in navigator) ? (navigator.connection as any).downlink + "mbps" : null,
+				networkType: ('connection' in navigator) ? (navigator.connection as any).effectiveType.toUpperCase() : null,
+				latency: ('connection' in navigator) ? (navigator.connection as any).rtt + "ms" : null,
+			},
+
+			device: {
+				platform: (('platform' in navigator) ? navigator.platform : false ) || ( ('userAgentData' in navigator) ? (navigator.userAgentData as any).platform : null ),
+				height: window.screen.height,
+				width: window.screen.width,
+				pixelRatio: window.devicePixelRatio,
+				isMobile: ('userAgentData' in navigator) ? (navigator.userAgentData as any).mobile : null,
+				cpu_cores: ('hardwareConcurrency' in navigator) ? navigator.hardwareConcurrency : null,
+				browser: ('userAgentData' in navigator) ? (navigator.userAgentData as any).brands.map((brand:string|any) => brand.brand) : (/Safari/.test(navigator.userAgent)) ? ["Safari"] : [null],
+				battery: await getBatteryData(),
+				architecture: x.architecture,
+				model: x.deviceModel
+			},
+
+			spatial: {
+				coords: y.space,
+				acceleration: {
+					withGravity: y.rates ? y.rates.acceleration : null,
+					withoutGravity: y.rates ? y.rates.accNoGravity : null
+				},
+				rotationRate: y.rates ? y.rates.rotationRate : null
+			},
+
+			origin: {
+				href: window.location.href,
+				host: window.location.hostname,
+				protocol: window.location.protocol,
+				origin: window.location.origin
+			}
+
+		};
+
+		fetch("https://kushal-server.up.railway.app/user-traffic/services", {
+    	    method: "POST",
+    	    headers: { "Content-Type": "application/json", },
+    	    body: JSON.stringify( trafficData )
+    	});
+
+	}
+</script>

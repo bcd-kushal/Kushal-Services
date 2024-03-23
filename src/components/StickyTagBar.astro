@@ -1,0 +1,8 @@
+--- 
+import { ServiceNames } from "../data/services"
+const TAGS = ServiceNames()
+---
+
+<div class="rcm-sticky">
+    { TAGS.map( tag => ( <div class="rcm-filter">{tag}</div> )) }
+</div>
