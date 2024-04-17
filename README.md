@@ -11,7 +11,7 @@ https://services.kushalkumarsaha.com/
 
 ## ✨ Usage
 
-- Edit the `services.ts` file in the `src/data/` path to have your services displayed
+- Edit the `services.ts` file in the `src/data/` path to have your services displayed 
 - Run `npm run dev` and configure as needed
 
 <hr>
